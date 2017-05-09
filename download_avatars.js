@@ -38,8 +38,10 @@ function printResponse(error, response, body){
   var parsedResults = JSON.parse(body);
   // console.log(parsedResults);
   for (var array in parsedResults) {
-    // console.log(parsedResults[array].avatar_url);
+    var avatarurl = parsedResults[array]["avatar_url"];
+    downloadImageByURL(avatarurl, `avatar/${array}.jpg`);
   }
+
 }
 
 getRepoContributors(process.argv[2],process.argv[3], printResponse);
@@ -55,13 +57,13 @@ function downloadImageByURL(url, filePath) {
        })
        .on('response', function (response) {                           // Note 3
          console.log('Response Status Code: ', response.statusCode);
-         console.log('Downloading image...');
+         // console.log('Downloading image...');
        })
        .on('end', function () {
-          console.log('Download complete.');
+          // console.log('Download complete.');
 
        })
        .pipe(fs.createWriteStream(filePath));
 }
 
-downloadImageByURL("https://avatars3.githubusercontent.com/u/1615?v=3", "./kvirani.jpg");
+
