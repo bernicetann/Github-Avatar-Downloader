@@ -8,7 +8,7 @@ var GITHUB_USER = "bernicetann";
 var GITHUB_TOKEN = "be4a8b00f40b479cd3c37dc5127fe2e5e641ba9c";
 
 function getRepoContributors(repoOwner, repoName, cb) {
-  // ...
+
   var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
 
   request.get({
@@ -28,7 +28,6 @@ function getRepoContributors(repoOwner, repoName, cb) {
        //    console.log('Download complete.');
        // });
        // console.log(requestURL);
-
 }
 
 
@@ -38,30 +37,23 @@ function printResponse(error, response, body){
     return
   }
   var parsedResults = JSON.parse(body);
-  // console.log(parsedResults);
   for (var array in parsedResults) {
     var avatarurl = parsedResults[array]["avatar_url"];
     downloadImageByURL(avatarurl, `avatar/${array}.jpg`);
   }
-
 }
 
 var fs = require('fs');
 
-
 function downloadImageByURL(url, filePath) {
 
-  request.get(url)               // Note 1
-       .on('error', function (err) {                                   // Note 2
+  request.get(url)
+       .on('error', function (err) {
          throw err;
        })
-       .on('response', function (response) {                           // Note 3
-         console.log('Response Status Code: ', response.statusCode);
-         // console.log('Downloading image...');
+       .on('response', function (response) {
        })
        .on('end', function () {
-          // console.log('Download complete.');
-
        })
        .pipe(fs.createWriteStream(filePath));
 }
