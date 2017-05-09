@@ -1,10 +1,11 @@
 var request = require('request');
 
-// console.log('Welcome to the Github Avatar Downloader');
+if(!process.argv[2] && !process.argv[3]) {
+  console.log("ERROR, you did not specify both arguments");
+} else {
 
 var GITHUB_USER = "bernicetann";
 var GITHUB_TOKEN = "be4a8b00f40b479cd3c37dc5127fe2e5e641ba9c";
-// var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
 
 function getRepoContributors(repoOwner, repoName, cb) {
   // ...
@@ -27,6 +28,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
        //    console.log('Download complete.');
        // });
        // console.log(requestURL);
+
 }
 
 
@@ -43,8 +45,6 @@ function printResponse(error, response, body){
   }
 
 }
-
-getRepoContributors(process.argv[2],process.argv[3], printResponse);
 
 var fs = require('fs');
 
@@ -66,4 +66,7 @@ function downloadImageByURL(url, filePath) {
        .pipe(fs.createWriteStream(filePath));
 }
 
+getRepoContributors(process.argv[2],process.argv[3], printResponse);
+
+}
 
